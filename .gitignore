@@ -2,6 +2,7 @@
 *.dsym
 *.dll
 *.txt
-*.vscode
+.vscode/
 Makefile
+main.code-workspace
 main
