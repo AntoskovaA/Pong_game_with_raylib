@@ -61,6 +61,7 @@ int main () {
         EndDrawing();
     }
     CloseWindow();
+    delete ball;
 
     return 0;
 }
