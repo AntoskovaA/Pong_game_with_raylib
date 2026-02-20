@@ -1,4 +1,7 @@
 *.exe
 *.dsym
 *.dll
+*.txt
+*.vscode
+Makefile
 main
