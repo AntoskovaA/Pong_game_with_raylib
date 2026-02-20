@@ -19,13 +19,13 @@ void Paddle::Draw()
     // DrawRectangle(x, y, width, height, WHITE);
 }
 
-void Paddle::Update()
+void Paddle::Update(KeyboardKey up, KeyboardKey down)
 {
-    if (IsKeyDown(KEY_UP))
+    if (IsKeyDown(up))
     {
         y = y - speed;
     }
-    if (IsKeyDown(KEY_DOWN))
+    if (IsKeyDown(down))
     {
         y = y + speed;
     }

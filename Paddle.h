@@ -14,7 +14,7 @@ class Paddle {
 
     void Draw();
 
-    void Update();
+    void Update(KeyboardKey up, KeyboardKey down);
 };
 
 class CPUPaddle: public Paddle

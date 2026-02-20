@@ -29,7 +29,7 @@ void Manager::CheckColision()
 void Manager::UpdateState()
 {
     ball->Update();
-    player->Update();
+    player->Update(KEY_UP, KEY_DOWN);
     cpu->Update(ball->y);
 }
 
