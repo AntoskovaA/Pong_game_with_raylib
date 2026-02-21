@@ -6,7 +6,7 @@ class Button
     Texture2D texture;
     Vector2 position;
     public:
-    Button(char* imagePath, Vector2 imagePosition, float scale);
+    Button(const char* imagePath, Vector2 imagePosition, float scale);
     ~Button();
 
     void Draw();

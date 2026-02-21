@@ -3,9 +3,12 @@
 #include "Ball.h"
 #include "Paddle.h"
 #include "Manager.h"
+#include "Button.h"
 
 int main () {
 
+    enum GameScreen { MENU, GAME_PLAYER_VS_CPU, GAME_PLAYER_VS_PLAYER };
+    GameScreen currentScreen = MENU;
     const int screen_width = 1280;
     const int screen_height = 800;
 
@@ -26,6 +29,10 @@ int main () {
     InitWindow(screen_width, screen_height, "My pong game!");
     SetTargetFPS(60);
 
+    Texture2D background = LoadTexture("Graphics/background.png");
+    Button startButton("Graphics/button.png", {30, 340}, 0.25);
+    Button two_player_Button("Graphics/button.png", {30, 500}, 0.25);
+    
     player.color = Raspberry;
     player.width = 25;
     player.height = 120;
@@ -45,8 +52,15 @@ int main () {
         
         //640, 400
         BeginDrawing();
-
-        GameManager.UpdateState();
+        if (currentScreen == MENU)
+        {
+            ClearBackground(BLACK);
+            DrawTexture(background, 0, 0, WHITE);
+            startButton.Draw();
+            two_player_Button.Draw();
+        }
+        else
+        {GameManager.UpdateState();
 
         GameManager.CheckColision();
 
@@ -56,7 +70,7 @@ int main () {
         cpu.Draw();
         player.Draw();
         DrawText(TextFormat("%i", ball->cpu_score), screen_width/4 - 20 ,20 ,80,WHITE);
-        DrawText(TextFormat("%i", ball->player_score), 3 *screen_width/4 - 20 ,20 ,80,WHITE);
+        DrawText(TextFormat("%i", ball->player_score), 3 *screen_width/4 - 20 ,20 ,80,WHITE);}
 
         EndDrawing();
     }
