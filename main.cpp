@@ -30,7 +30,7 @@ int main () {
     SetTargetFPS(60);
 
     Texture2D background = LoadTexture("Graphics/background.png");
-    Button startButton("Graphics/button.png", {30, 340}, 0.25);
+    Button VsBot("Graphics/button.png", {30, 340}, 0.25);
     Button two_player_Button("Graphics/button.png", {30, 500}, 0.25);
     
     player.color = Raspberry;
@@ -56,10 +56,16 @@ int main () {
         {
             ClearBackground(BLACK);
             DrawTexture(background, 0, 0, WHITE);
-            startButton.Draw();
+            VsBot.Draw();
             two_player_Button.Draw();
+            DrawText("VS Bot", 120, 380, 50, BLACK);
+            DrawText("2 players", 100, 540, 50, BLACK);
+            if (VsBot.isPressed(GetMousePosition(), IsMouseButtonPressed(MOUSE_BUTTON_LEFT)))
+            {
+                currentScreen = GAME_PLAYER_VS_CPU;
+            }
         }
-        else
+        else if (currentScreen == GAME_PLAYER_VS_CPU)
         {GameManager.UpdateState();
 
         GameManager.CheckColision();
