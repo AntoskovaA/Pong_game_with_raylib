@@ -11,6 +11,7 @@ Manager::Manager(Ball *b, Paddle *p, Paddle *c)
     vsBotBtn = new Button("Graphics/button.png", {30, 340}, 0.25);
     twoPlayersBtn = new Button("Graphics/button.png", {30, 500}, 0.25);
 
+    SetupEntities();
     currentState = MENU;
 }
 
@@ -51,6 +52,10 @@ void Manager::Update()
     }
     else
     {
+        if (IsKeyPressed(KEY_SPACE))
+        {
+            currentState = MENU;
+        }
         ball->Update();
         player->Update(KEY_UP, KEY_DOWN);
 
@@ -110,4 +115,20 @@ void Manager::Draw()
     {
         DrawGame(GetScreenWidth());
     }
+}
+
+void Manager::SetupEntities() {
+    int sw = GetScreenWidth();
+    int sh = GetScreenHeight();
+
+    player->x = sw - player->width - 10;
+    player->y = sh / 2 - player->height / 2;
+
+    other->x = 10;
+    other->y = sh / 2 - other->height / 2;
+
+    ball->x = sw / 2;
+    ball->y = sh / 2;
+    ball->speed_x = 7;
+    ball->speed_y = 7;
 }

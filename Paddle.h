@@ -4,7 +4,7 @@
 
 class Paddle {
 
-    protected:
+    private:
     void LimitMovement();
     public:
     float x, y;
@@ -16,4 +16,6 @@ class Paddle {
 
     void Update(KeyboardKey up, KeyboardKey down);
     void Update(int ball_y);
+    public:
+    Paddle();
 };

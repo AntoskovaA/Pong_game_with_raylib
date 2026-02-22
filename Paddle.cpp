@@ -1,6 +1,13 @@
 #include <raylib.h>
 #include "Paddle.h"
 
+Paddle::Paddle() {
+    width = 25;
+    height = 120;
+    speed = 6;
+    color = {227, 11, 92, 255};
+}
+
 void Paddle::LimitMovement()
 {
     if (y <= 0)

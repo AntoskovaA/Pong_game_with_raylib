@@ -27,12 +27,11 @@ public:
 
     void CheckColision();
 
-    void HandleGameState(int screen_wid);
     void UpdateState();
     void DrawBackground();
-    void DrawStartpage();
     void DrawGame(int screen_w);
     void DrawMenu();
     void Update();
     void Draw();
+    void SetupEntities();
 };
