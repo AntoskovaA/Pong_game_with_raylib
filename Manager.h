@@ -23,6 +23,7 @@ public:
     Texture2D menuBackground;
 
     Manager(Ball *b, Paddle *p, CPUPaddle *c);
+    ~Manager();
 
     void CheckColision();
 
@@ -31,5 +32,7 @@ public:
     void DrawBackground();
     void DrawStartpage();
     void DrawGame(int screen_w);
-    void DrawMenu(Texture2D background, Button bot, Button tplayers);
+    void DrawMenu();
+    void Update();
+    void Draw();
 };

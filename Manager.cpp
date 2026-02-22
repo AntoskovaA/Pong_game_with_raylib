@@ -6,9 +6,19 @@
 Manager::Manager(Ball *b, Paddle *p, CPUPaddle *c)
     : ball(b), player(p), cpu(c)
 {
-    // ball = b;
-    // player = p;
-    // cpu = c;
+    menuBackground = LoadTexture("Graphics/background.png");
+
+    vsBotBtn = new Button("Graphics/button.png", {30, 340}, 0.25);
+    twoPlayersBtn = new Button("Graphics/button.png", {30, 500}, 0.25);
+
+    currentState = MENU;
+}
+
+Manager::~Manager()
+{
+    UnloadTexture(menuBackground);
+    delete vsBotBtn;
+    delete twoPlayersBtn;
 }
 
 void Manager::CheckColision()
@@ -26,23 +36,27 @@ void Manager::CheckColision()
     }
 }
 
-void Manager::HandleGameState(int screen_wid)
+void Manager::Update()
 {
-    if (vsBotBtn->isPressed(GetMousePosition(), IsMouseButtonPressed(MOUSE_BUTTON_LEFT)))
-    {
-        currentState = GAME_PLAYER_VS_CPU;
-    }
     if (currentState == MENU)
     {
-        DrawMenu(menuBackground, *vsBotBtn, *twoPlayersBtn);
+        if (vsBotBtn->isPressed(GetMousePosition(), IsMouseButtonPressed(MOUSE_BUTTON_LEFT)))
+        {
+            currentState = GAME_PLAYER_VS_CPU;
+        }
+        if (twoPlayersBtn->isPressed(GetMousePosition(), IsMouseButtonPressed(MOUSE_BUTTON_LEFT)))
+        {
+            currentState = GAME_PLAYER_VS_PLAYER;
+        }
     }
-    else if (currentState == GAME_PLAYER_VS_CPU)
+    else
     {
-        UpdateState();
+        ball->Update();
+        player->Update(KEY_UP, KEY_DOWN);
+
+        cpu->Update(ball->y);
 
         CheckColision();
-
-        DrawGame(screen_wid);
     }
 }
 
@@ -62,11 +76,6 @@ void Manager::DrawBackground()
     DrawLine(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight(), WHITE);
 }
 
-void Manager::DrawStartpage()
-{
-    ClearBackground(ColorBrightness(PINK, 0.6));
-}
-
 void Manager::DrawGame(int screen_w)
 {
     DrawBackground();
@@ -77,12 +86,23 @@ void Manager::DrawGame(int screen_w)
     DrawText(TextFormat("%i", ball->player_score), 3 * screen_w / 4 - 20, 20, 80, WHITE);
 }
 
-void Manager::DrawMenu(Texture2D background, Button bot, Button tplayers)
+void Manager::DrawMenu()
 {
     ClearBackground(BLACK);
-    DrawTexture(background, 0, 0, WHITE);
-    bot.Draw();
-    tplayers.Draw();
+    DrawTexture(menuBackground, 0, 0, WHITE);
+    vsBotBtn->Draw();
+    twoPlayersBtn->Draw();
     DrawText("VS Bot", 120, 380, 50, BLACK);
     DrawText("2 players", 100, 540, 50, BLACK);
+}
+void Manager::Draw()
+{
+    if (currentState == MENU)
+    {
+        DrawMenu();
+    }
+    else
+    {
+        DrawGame(GetScreenWidth());
+    }
 }
