@@ -7,8 +7,6 @@
 
 int main () {
 
-    enum GameScreen { MENU, GAME_PLAYER_VS_CPU, GAME_PLAYER_VS_PLAYER };
-    GameScreen currentScreen = MENU;
     const int screen_width = 1280;
     const int screen_height = 800;
 
@@ -31,7 +29,7 @@ int main () {
 
     Texture2D background = LoadTexture("Graphics/background.png");
     Button VsBot("Graphics/button.png", {30, 340}, 0.25);
-    Button two_player_Button("Graphics/button.png", {30, 500}, 0.25);
+    Button two_players("Graphics/button.png", {30, 500}, 0.25);
     
     player.color = Raspberry;
     player.width = 25;
@@ -52,31 +50,7 @@ int main () {
         
         //640, 400
         BeginDrawing();
-        if (currentScreen == MENU)
-        {
-            ClearBackground(BLACK);
-            DrawTexture(background, 0, 0, WHITE);
-            VsBot.Draw();
-            two_player_Button.Draw();
-            DrawText("VS Bot", 120, 380, 50, BLACK);
-            DrawText("2 players", 100, 540, 50, BLACK);
-            if (VsBot.isPressed(GetMousePosition(), IsMouseButtonPressed(MOUSE_BUTTON_LEFT)))
-            {
-                currentScreen = GAME_PLAYER_VS_CPU;
-            }
-        }
-        else if (currentScreen == GAME_PLAYER_VS_CPU)
-        {GameManager.UpdateState();
-
-        GameManager.CheckColision();
-
-        GameManager.DrawBackground();
-
-        ball->Draw();
-        cpu.Draw();
-        player.Draw();
-        DrawText(TextFormat("%i", ball->cpu_score), screen_width/4 - 20 ,20 ,80,WHITE);
-        DrawText(TextFormat("%i", ball->player_score), 3 *screen_width/4 - 20 ,20 ,80,WHITE);}
+        GameManager.HandleGameState(screen_width);
 
         EndDrawing();
     }

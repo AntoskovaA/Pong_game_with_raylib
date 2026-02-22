@@ -3,12 +3,12 @@
 #include "Paddle.h"
 #include "Manager.h"
 
-Manager::Manager(Ball* b, Paddle* p, CPUPaddle* c)
-: ball(b), player(p), cpu(c)
+Manager::Manager(Ball *b, Paddle *p, CPUPaddle *c)
+    : ball(b), player(p), cpu(c)
 {
-    //ball = b;
-    //player = p;
-    //cpu = c;
+    // ball = b;
+    // player = p;
+    // cpu = c;
 }
 
 void Manager::CheckColision()
@@ -26,6 +26,26 @@ void Manager::CheckColision()
     }
 }
 
+void Manager::HandleGameState(int screen_wid)
+{
+    if (vsBotBtn->isPressed(GetMousePosition(), IsMouseButtonPressed(MOUSE_BUTTON_LEFT)))
+    {
+        currentState = GAME_PLAYER_VS_CPU;
+    }
+    if (currentState == MENU)
+    {
+        DrawMenu(menuBackground, *vsBotBtn, *twoPlayersBtn);
+    }
+    else if (currentState == GAME_PLAYER_VS_CPU)
+    {
+        UpdateState();
+
+        CheckColision();
+
+        DrawGame(screen_wid);
+    }
+}
+
 void Manager::UpdateState()
 {
     ball->Update();
@@ -40,4 +60,29 @@ void Manager::DrawBackground()
     DrawCircle(GetScreenWidth() / 2, GetScreenHeight() / 2, 130, ColorBrightness(WHITE, 1));
 
     DrawLine(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight(), WHITE);
+}
+
+void Manager::DrawStartpage()
+{
+    ClearBackground(ColorBrightness(PINK, 0.6));
+}
+
+void Manager::DrawGame(int screen_w)
+{
+    DrawBackground();
+    ball->Draw();
+    cpu->Draw();
+    player->Draw();
+    DrawText(TextFormat("%i", ball->cpu_score), screen_w / 4 - 20, 20, 80, WHITE);
+    DrawText(TextFormat("%i", ball->player_score), 3 * screen_w / 4 - 20, 20, 80, WHITE);
+}
+
+void Manager::DrawMenu(Texture2D background, Button bot, Button tplayers)
+{
+    ClearBackground(BLACK);
+    DrawTexture(background, 0, 0, WHITE);
+    bot.Draw();
+    tplayers.Draw();
+    DrawText("VS Bot", 120, 380, 50, BLACK);
+    DrawText("2 players", 100, 540, 50, BLACK);
 }
