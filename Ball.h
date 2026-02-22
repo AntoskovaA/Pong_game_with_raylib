@@ -18,9 +18,5 @@ class Ball
     void Draw();
     void Update();
     void ResetBall();
-    //void CheckCollision(Paddle& player, Paddle& other);
-
     Ball(float _x, float _y, int _speed_x, int _speed_y, int r, Color c);
-
-    //int GetRadius();
 };

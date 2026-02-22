@@ -23,7 +23,6 @@ void Paddle::LimitMovement()
 void Paddle::Draw()
 {
     DrawRectangleRounded(Rectangle{x, y, width, height}, 1, 3, color);
-    // DrawRectangle(x, y, width, height, WHITE);
 }
 
 void Paddle::Update(KeyboardKey up, KeyboardKey down)
