@@ -33,7 +33,7 @@ void Paddle::Update(KeyboardKey up, KeyboardKey down)
     LimitMovement();
 }
 
-void CPUPaddle::Update(int ball_y)
+void Paddle::Update(int ball_y)
 {
     if (y + height / 2 > ball_y)
     {

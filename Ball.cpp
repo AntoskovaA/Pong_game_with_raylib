@@ -2,7 +2,7 @@
 #include "Ball.h"
 
 
-int Ball::cpu_score = 0;
+int Ball::other_score = 0;
 int Ball::player_score = 0;
 
 Ball::Ball(float _x, float _y, int _speed_x, int _speed_y, int r, Color c)
@@ -31,7 +31,7 @@ void Ball::Update()
     }
     if (x + radius >= GetScreenWidth())
     {
-        cpu_score++;
+        other_score++;
         ResetBall();
     }
 

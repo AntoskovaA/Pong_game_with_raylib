@@ -10,7 +10,7 @@ class Manager
 public:
     Ball *ball;
     Paddle *player;
-    CPUPaddle *cpu;
+    Paddle *other;
     enum GameScreen
     {
         MENU,
@@ -22,7 +22,7 @@ public:
     Button *twoPlayersBtn;
     Texture2D menuBackground;
 
-    Manager(Ball *b, Paddle *p, CPUPaddle *c);
+    Manager(Ball *b, Paddle *p, Paddle *c);
     ~Manager();
 
     void CheckColision();

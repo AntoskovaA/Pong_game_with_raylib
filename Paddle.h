@@ -15,11 +15,5 @@ class Paddle {
     void Draw();
 
     void Update(KeyboardKey up, KeyboardKey down);
-};
-
-class CPUPaddle: public Paddle
-{
-    public:
     void Update(int ball_y);
-
 };

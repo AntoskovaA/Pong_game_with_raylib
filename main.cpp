@@ -18,9 +18,9 @@ int main () {
 
     Ball* ball = new Ball(centerX, centerY, 7, 7, 18, Rose);
     Paddle player;
-    CPUPaddle cpu;
+    Paddle other;
 
-    Manager gameManager(ball, &player, &cpu);
+    Manager gameManager(ball, &player, &other);
 
     player.color = Raspberry;
     player.width = 25;
@@ -29,12 +29,12 @@ int main () {
     player.y = centerY - player.height / 2;
     player.speed = 6;
 
-    cpu.color = Raspberry;
-    cpu.width = 25;
-    cpu.height = 120;
-    cpu.x = 10;
-    cpu.y = centerY - cpu.height / 2;
-    cpu.speed = 6;
+    other.color = Raspberry;
+    other.width = 25;
+    other.height = 120;
+    other.x = 10;
+    other.y = centerY - other.height / 2;
+    other.speed = 6;
 
     while (WindowShouldClose() == false)
     {
